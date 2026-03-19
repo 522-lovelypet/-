@@ -259,15 +259,48 @@
 </div>
 
 <script>
-  function submitForm() {
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzni02PNouVOVlkzuQulv04HcLtNunaPjv1nG6L5-GN6YmT3p8C6gSQTgVbWiKLK00-XA/exec';
+
+  async function submitForm() {
     const name = document.getElementById('name').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const time = document.getElementById('time').value;
     if (!name) { alert('이름을 입력해주세요.'); return; }
     if (!phone) { alert('연락처를 입력해주세요.'); return; }
     if (!time) { alert('상담 희망 시간을 선택해주세요.'); return; }
-    document.getElementById('successOverlay').classList.add('show');
+
+    const btn = document.querySelector('.submit-btn');
+    btn.textContent = '전송 중...';
+    btn.disabled = true;
+
+    const checked = [...document.querySelectorAll('.check-item input:checked')]
+      .map(c => c.value).join(', ') || '미선택';
+
+    const data = {
+      name,
+      phone,
+      time,
+      course: checked,
+      exp: document.getElementById('exp').value || '미선택',
+      message: document.getElementById('message').value.trim() || '없음'
+    };
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      document.getElementById('successOverlay').classList.add('show');
+    } catch (e) {
+      alert('전송 중 오류가 발생했습니다. 다시 시도해주세요.');
+    } finally {
+      btn.textContent = '무료 상담 신청하기 →';
+      btn.disabled = false;
+    }
   }
+
   function closeSuccess() {
     document.getElementById('successOverlay').classList.remove('show');
     window.location.href = 'index.html';
