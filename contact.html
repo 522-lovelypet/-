@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>무료 상담 신청 — 이바우펫 애견미용학원</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF6F0;
+    --warm-white: #FFFCF8;
+    --brown: #3D2B1F;
+    --brown-mid: #6B4226;
+    --brown-light: #C49A6C;
+    --gold: #D4A853;
+    --gold-light: #F0D49A;
+    --paw: #E8D5B7;
+    --text: #2A1F14;
+    --text-mid: #5C4033;
+    --text-light: #9C7B60;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); color: var(--text); font-family: 'Noto Sans KR', sans-serif; min-height: 100vh; }
+
+  /* NAV */
+  nav { padding: 20px 60px; display: flex; justify-content: space-between; align-items: center; background: rgba(250,246,240,0.95); border-bottom: 1px solid rgba(196,154,108,0.2); position: sticky; top:0; z-index:100; backdrop-filter: blur(12px); }
+  .nav-logo { font-family: 'Noto Serif KR', serif; font-weight: 900; font-size: 1.3rem; color: var(--brown); text-decoration: none; }
+  .nav-logo span { color: var(--gold); }
+  .nav-back { font-size: 0.82rem; color: var(--text-mid); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+  .nav-back:hover { color: var(--gold); }
+
+  /* LAYOUT */
+  .page { max-width: 1100px; margin: 0 auto; padding: 60px 40px 100px; display: grid; grid-template-columns: 1fr 420px; gap: 60px; align-items: start; }
+
+  /* LEFT — 안내 */
+  .info-side {}
+  .info-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--gold-light); color: var(--brown-mid); font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 14px; border-radius: 2px; margin-bottom: 24px; }
+  .info-title { font-family: 'Noto Serif KR', serif; font-size: 2.4rem; font-weight: 900; color: var(--brown); line-height: 1.2; margin-bottom: 16px; }
+  .info-title em { font-style: normal; color: var(--gold); }
+  .info-sub { font-size: 0.95rem; color: var(--text-mid); line-height: 1.85; font-weight: 300; margin-bottom: 44px; }
+
+  .info-cards { display: flex; flex-direction: column; gap: 14px; margin-bottom: 44px; }
+  .info-card { background: var(--warm-white); border: 1px solid var(--paw); border-left: 3px solid var(--gold); padding: 20px 24px; display: flex; gap: 16px; align-items: flex-start; }
+  .ic-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: 2px; }
+  .ic-title { font-size: 0.9rem; font-weight: 700; color: var(--brown); margin-bottom: 4px; }
+  .ic-text { font-size: 0.8rem; color: var(--text-light); line-height: 1.65; font-weight: 300; }
+
+  .contact-direct { background: var(--brown); padding: 28px 32px; border-radius: 4px; }
+  .cd-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .cd-phone { font-family: 'Noto Serif KR', serif; font-size: 1.9rem; font-weight: 900; color: var(--gold-light); letter-spacing: 1px; margin-bottom: 6px; }
+  .cd-info { font-size: 0.78rem; color: rgba(250,246,240,0.55); line-height: 1.8; }
+
+  /* RIGHT — 폼 */
+  .form-side { position: sticky; top: 100px; }
+  .form-card { background: var(--warm-white); border: 1px solid var(--paw); border-radius: 4px; padding: 40px; box-shadow: 0 20px 60px rgba(61,43,31,0.08); }
+  .form-card::before { content: ''; display: block; height: 4px; background: linear-gradient(90deg, var(--gold), var(--brown-light)); margin: -40px -40px 32px; border-radius: 4px 4px 0 0; }
+
+  .form-title { font-family: 'Noto Serif KR', serif; font-size: 1.3rem; font-weight: 900; color: var(--brown); margin-bottom: 6px; }
+  .form-sub { font-size: 0.8rem; color: var(--text-light); margin-bottom: 28px; font-weight: 300; }
+
+  .field { margin-bottom: 18px; }
+  .field label { display: block; font-size: 0.78rem; font-weight: 700; color: var(--brown); margin-bottom: 7px; letter-spacing: 0.3px; }
+  .field label .req { color: var(--gold); margin-left: 2px; }
+  .field input, .field select, .field textarea {
+    width: 100%; padding: 12px 16px;
+    border: 1.5px solid var(--paw);
+    background: var(--cream);
+    font-size: 0.88rem; color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    border-radius: 2px;
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); background: #fff; }
+  .field textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+  .field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239C7B60' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px; }
+
+  .check-group { display: flex; flex-direction: column; gap: 8px; }
+  .check-item { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+  .check-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--gold); cursor: pointer; }
+  .check-item span { font-size: 0.82rem; color: var(--text-mid); }
+
+  .submit-btn {
+    width: 100%; padding: 16px;
+    background: var(--brown); color: var(--cream);
+    font-size: 0.95rem; font-weight: 700;
+    border: none; cursor: pointer;
+    border-radius: 2px; margin-top: 24px;
+    letter-spacing: 0.5px;
+    transition: all 0.25s;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .submit-btn:hover { background: var(--gold); color: var(--brown); transform: translateY(-1px); }
+
+  .form-note { font-size: 0.72rem; color: var(--text-light); text-align: center; margin-top: 14px; line-height: 1.6; }
+
+  /* SUCCESS */
+  .success-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(61,43,31,0.5);
+    z-index: 200;
+    align-items: center; justify-content: center;
+  }
+  .success-overlay.show { display: flex; }
+  .success-box {
+    background: var(--warm-white);
+    border-radius: 4px; padding: 52px 48px;
+    text-align: center; max-width: 420px; width: 90%;
+    animation: popIn 0.4s ease;
+  }
+  .success-icon { font-size: 3.5rem; margin-bottom: 16px; }
+  .success-title { font-family: 'Noto Serif KR', serif; font-size: 1.5rem; font-weight: 900; color: var(--brown); margin-bottom: 12px; }
+  .success-text { font-size: 0.9rem; color: var(--text-mid); line-height: 1.8; font-weight: 300; margin-bottom: 28px; }
+  .success-btn { background: var(--brown); color: var(--cream); padding: 14px 36px; font-size: 0.9rem; font-weight: 700; border: none; border-radius: 2px; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; transition: background 0.2s; }
+  .success-btn:hover { background: var(--gold); color: var(--brown); }
+
+  @keyframes popIn { from { opacity:0; transform: scale(0.9) translateY(20px); } to { opacity:1; transform: scale(1) translateY(0); } }
+  @keyframes fadeUp { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: translateY(0); } }
+
+  .page > * { animation: fadeUp 0.7s ease both; }
+  .form-side { animation-delay: 0.15s; }
+
+  @media (max-width: 860px) {
+    nav { padding: 16px 24px; }
+    .page { grid-template-columns: 1fr; padding: 40px 24px 80px; gap: 40px; }
+    .form-side { position: static; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">이바우<span>펫</span></a>
+  <a href="index.html" class="nav-back">← 메인으로 돌아가기</a>
+</nav>
+
+<div class="page">
+  <!-- 왼쪽 안내 -->
+  <div class="info-side">
+    <div class="info-badge">🐾 무료 상담 · 부담 없이 문의하세요</div>
+    <h1 class="info-title">지금 바로<br><em>맞춤 상담</em>을<br>받아보세요</h1>
+    <p class="info-sub">
+      애견미용을 처음 시작하시나요?<br>
+      자격증, 취업, 창업 — 어떤 목표든 상관없습니다.<br>
+      30분 상담으로 나에게 맞는 방향을 찾아드립니다.
+    </p>
+
+    <div class="info-cards">
+      <div class="info-card">
+        <div class="ic-icon">📚</div>
+        <div>
+          <div class="ic-title">처음 시작해도 괜찮아요</div>
+          <p class="ic-text">기초 이론부터 1:1로 차근차근 알려드립니다. 나이나 경험에 상관없이 누구나 시작할 수 있습니다.</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="ic-icon">💸</div>
+        <div>
+          <div class="ic-title">수강료 최대 70% 지원 가능</div>
+          <p class="ic-text">협회 지원 장학 제도로 수강료 부담을 크게 줄일 수 있습니다. 상담 시 지원 가능 여부를 바로 확인해드립니다.</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="ic-icon">🏪</div>
+        <div>
+          <div class="ic-title">취업·창업까지 원스톱 지원</div>
+          <p class="ic-text">수료 후 취업 연계는 물론, 인천 지역 창업 컨설팅까지 무료로 받을 수 있습니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-direct">
+      <div class="cd-label">전화 직접 문의</div>
+      <div class="cd-phone">010-9570-1537</div>
+      <div class="cd-info">
+        월~목 &nbsp;11:00 ~ 21:30<br>
+        토요일 &nbsp;11:00 ~ 15:00<br>
+        문자로도 편하게 연락주세요 🐾
+      </div>
+    </div>
+  </div>
+
+  <!-- 오른쪽 폼 -->
+  <div class="form-side">
+    <div class="form-card">
+      <div class="form-title">무료 상담 신청서</div>
+      <p class="form-sub">작성해주시면 빠르게 연락드리겠습니다 (보통 당일 내 연락)</p>
+
+      <div class="field">
+        <label>이름 <span class="req">*</span></label>
+        <input type="text" id="name" placeholder="홍길동" />
+      </div>
+
+      <div class="field">
+        <label>연락처 <span class="req">*</span></label>
+        <input type="tel" id="phone" placeholder="010-0000-0000" />
+      </div>
+
+      <div class="field">
+        <label>상담 희망 시간 <span class="req">*</span></label>
+        <select id="time">
+          <option value="">선택해주세요</option>
+          <option>평일 오전 (11:00~13:00)</option>
+          <option>평일 오후 (13:00~18:00)</option>
+          <option>평일 저녁 (18:00~21:30)</option>
+          <option>토요일 (11:00~15:00)</option>
+          <option>언제든지 가능</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>관심 과정</label>
+        <div class="check-group">
+          <label class="check-item"><input type="checkbox" value="자격증" /><span>자격증 취득 과정</span></label>
+          <label class="check-item"><input type="checkbox" value="취업" /><span>취업 연계 과정</span></label>
+          <label class="check-item"><input type="checkbox" value="창업" /><span>창업 전문 특별반</span></label>
+          <label class="check-item"><input type="checkbox" value="미정" /><span>아직 잘 모르겠어요</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>미용 경험</label>
+        <select id="exp">
+          <option value="">선택해주세요</option>
+          <option>전혀 없음 (처음 시작)</option>
+          <option>조금 있음 (독학·유튜브 등)</option>
+          <option>타 학원 수강 경험 있음</option>
+          <option>현직 미용사 (기술 향상 목적)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>문의 사항</label>
+        <textarea id="message" placeholder="궁금하신 점을 자유롭게 적어주세요.&#10;(수강료, 일정, 커리큘럼 등)"></textarea>
+      </div>
+
+      <button class="submit-btn" onclick="submitForm()">무료 상담 신청하기 →</button>
+      <p class="form-note">개인정보는 상담 목적으로만 사용되며 외부에 제공되지 않습니다</p>
+    </div>
+  </div>
+</div>
+
+<!-- 완료 팝업 -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-box">
+    <div class="success-icon">🐾</div>
+    <div class="success-title">신청이 완료됐어요!</div>
+    <p class="success-text">
+      빠른 시간 내에 담당자가 연락드리겠습니다.<br>
+      보통 당일 영업시간 내 연락드리고 있어요.<br><br>
+      급하신 경우 직접 전화 주세요.<br>
+      <strong style="color:#3D2B1F;">010-9570-1537</strong>
+    </p>
+    <button class="success-btn" onclick="closeSuccess()">확인</button>
+  </div>
+</div>
+
+<script>
+  function submitForm() {
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const time = document.getElementById('time').value;
+    if (!name) { alert('이름을 입력해주세요.'); return; }
+    if (!phone) { alert('연락처를 입력해주세요.'); return; }
+    if (!time) { alert('상담 희망 시간을 선택해주세요.'); return; }
+    document.getElementById('successOverlay').classList.add('show');
+  }
+  function closeSuccess() {
+    document.getElementById('successOverlay').classList.remove('show');
+    window.location.href = 'index.html';
+  }
+</script>
+</body>
+</html>

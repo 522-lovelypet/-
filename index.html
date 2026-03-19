@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이바우펫 애견미용학원</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF6F0;
+    --warm-white: #FFFCF8;
+    --brown: #3D2B1F;
+    --brown-mid: #6B4226;
+    --brown-light: #C49A6C;
+    --gold: #D4A853;
+    --gold-light: #F0D49A;
+    --paw: #E8D5B7;
+    --text: #2A1F14;
+    --text-mid: #5C4033;
+    --text-light: #9C7B60;
+    --green: #4A7C59;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(250,246,240,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(196,154,108,0.2);
+  }
+  .nav-logo { font-family: 'Noto Serif KR', serif; font-weight: 900; font-size: 1.3rem; color: var(--brown); letter-spacing: -0.5px; }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { font-size: 0.82rem; color: var(--text-mid); text-decoration: none; letter-spacing: 0.5px; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { background: var(--brown); color: var(--cream) !important; padding: 10px 22px; border-radius: 2px; font-weight: 700 !important; transition: background 0.2s !important; }
+  .nav-cta:hover { background: var(--gold) !important; color: var(--brown) !important; }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 140px 60px 80px 80px; position: relative; z-index: 2; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--gold-light); color: var(--brown-mid); font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 7px 16px; border-radius: 2px; width: fit-content; margin-bottom: 28px; animation: fadeUp 0.8s ease both; }
+  .hero-title { font-family: 'Noto Serif KR', serif; font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 900; line-height: 1.15; color: var(--brown); margin-bottom: 24px; animation: fadeUp 0.8s 0.1s ease both; }
+  .hero-title .accent { color: var(--gold); display: block; }
+  .hero-desc { font-size: 1rem; color: var(--text-mid); line-height: 1.8; max-width: 420px; margin-bottom: 44px; animation: fadeUp 0.8s 0.2s ease both; font-weight: 300; }
+  .hero-btns { display: flex; gap: 16px; animation: fadeUp 0.8s 0.3s ease both; }
+  .btn-primary { background: var(--brown); color: var(--cream); padding: 16px 36px; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.5px; border: none; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.25s; border-radius: 2px; }
+  .btn-primary:hover { background: var(--gold); color: var(--brown); transform: translateY(-2px); }
+  .btn-secondary { border: 1.5px solid var(--brown-light); color: var(--brown-mid); padding: 16px 36px; font-size: 0.9rem; font-weight: 500; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.25s; border-radius: 2px; background: transparent; }
+  .btn-secondary:hover { background: var(--paw); border-color: var(--gold); }
+  .hero-stats { display: flex; gap: 48px; margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--paw); animation: fadeUp 0.8s 0.4s ease both; }
+  .stat-num { font-family: 'Noto Serif KR', serif; font-size: 2.2rem; font-weight: 900; color: var(--brown); line-height: 1; }
+  .stat-num span { color: var(--gold); font-size: 1.4rem; }
+  .stat-label { font-size: 0.75rem; color: var(--text-light); margin-top: 6px; font-weight: 500; letter-spacing: 0.3px; }
+  .hero-right { position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .hero-bg-shape { position: absolute; inset: 0; background: linear-gradient(135deg, var(--paw) 0%, var(--gold-light) 60%, #E8C98A 100%); clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%); }
+  .hero-illustration { position: relative; z-index: 2; width: 380px; height: 380px; display: flex; align-items: center; justify-content: center; animation: float 4s ease-in-out infinite; }
+  .hero-circle { width: 320px; height: 320px; background: rgba(255,255,255,0.6); border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); border: 2px solid rgba(255,255,255,0.8); box-shadow: 0 20px 60px rgba(61,43,31,0.12); font-size: 9rem; flex-direction: column; gap: 0; position: relative; }
+  .hero-circle::after { content: ''; position: absolute; width: 360px; height: 360px; border-radius: 50%; border: 1px dashed rgba(196,154,108,0.4); animation: spin 30s linear infinite; }
+  .paw-deco { position: absolute; font-size: 1.8rem; opacity: 0.4; }
+  .paw-deco:nth-child(1) { top: -20px; right: 40px; animation: float 3s 0.5s ease-in-out infinite; }
+  .paw-deco:nth-child(2) { bottom: 20px; left: 0px; animation: float 3.5s 1s ease-in-out infinite; }
+  .paw-deco:nth-child(3) { top: 60px; left: -30px; animation: float 2.8s 0.2s ease-in-out infinite; }
+
+  /* SECTIONS */
+  section { padding: 100px 80px; }
+  .section-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+  .section-title { font-family: 'Noto Serif KR', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 900; color: var(--brown); line-height: 1.3; margin-bottom: 20px; }
+  .section-sub { font-size: 0.95rem; color: var(--text-mid); line-height: 1.8; font-weight: 300; max-width: 560px; }
+
+  /* ABOUT */
+  .about { background: var(--warm-white); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .about-visual { position: relative; }
+  .about-card { background: var(--cream); border: 1px solid var(--paw); border-radius: 4px; padding: 40px; position: relative; overflow: hidden; }
+  .about-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--gold), var(--brown-light)); }
+  .about-big-num { font-family: 'Noto Serif KR', serif; font-size: 6rem; font-weight: 900; color: var(--paw); line-height: 1; position: absolute; right: 24px; top: 16px; }
+  .about-items { display: flex; flex-direction: column; gap: 24px; margin-top: 16px; }
+  .about-item { display: flex; gap: 16px; align-items: flex-start; }
+  .about-icon { width: 42px; height: 42px; background: var(--gold-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+  .about-item-text strong { display: block; font-weight: 700; font-size: 0.92rem; color: var(--brown); margin-bottom: 4px; }
+  .about-item-text p { font-size: 0.82rem; color: var(--text-light); line-height: 1.6; font-weight: 300; }
+  .about-float-badge { position: absolute; bottom: -20px; right: -20px; background: var(--brown); color: var(--gold-light); padding: 24px; border-radius: 4px; text-align: center; box-shadow: 0 12px 30px rgba(61,43,31,0.25); }
+  .about-float-badge .num { font-family: 'Noto Serif KR', serif; font-size: 2rem; font-weight: 900; display: block; }
+  .about-float-badge .lbl { font-size: 0.7rem; opacity: 0.8; letter-spacing: 0.5px; }
+
+  /* CURRICULUM */
+  .curriculum { background: var(--brown); color: var(--cream); position: relative; overflow: hidden; }
+  .curriculum::before { content: '🐾'; position: absolute; font-size: 20rem; opacity: 0.04; right: -60px; bottom: -60px; transform: rotate(-15deg); }
+  .curriculum .section-title { color: var(--gold-light); }
+  .curriculum .section-sub { color: rgba(250,246,240,0.7); }
+  .curriculum .section-label { color: var(--gold); }
+  .curri-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+  .curri-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(196,154,108,0.2); border-radius: 4px; padding: 36px 28px; position: relative; transition: all 0.3s; overflow: hidden; }
+  .curri-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--gold), transparent); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+  .curri-card:hover { background: rgba(255,255,255,0.09); transform: translateY(-4px); }
+  .curri-card:hover::after { transform: scaleX(1); }
+  .curri-step { font-family: 'Noto Serif KR', serif; font-size: 3rem; font-weight: 900; color: rgba(212,168,83,0.25); line-height: 1; margin-bottom: 16px; }
+  .curri-icon { font-size: 2rem; margin-bottom: 12px; }
+  .curri-title { font-family: 'Noto Serif KR', serif; font-size: 1.1rem; font-weight: 700; color: var(--gold-light); margin-bottom: 10px; }
+  .curri-desc { font-size: 0.82rem; color: rgba(250,246,240,0.6); line-height: 1.7; font-weight: 300; }
+  .curri-tag { display: inline-block; margin-top: 16px; background: rgba(212,168,83,0.15); color: var(--gold); font-size: 0.7rem; padding: 4px 12px; border-radius: 20px; font-weight: 600; letter-spacing: 0.5px; }
+
+  /* FEATURES */
+  .features { background: var(--cream); padding: 100px 80px; }
+  .features-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; }
+  .feat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .feat-card { background: var(--warm-white); border: 1px solid var(--paw); border-radius: 4px; padding: 36px 24px; text-align: center; transition: all 0.3s; cursor: default; position: relative; overflow: hidden; }
+  .feat-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--gold-light), var(--paw)); opacity: 0; transition: opacity 0.3s; }
+  .feat-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(61,43,31,0.1); }
+  .feat-card:hover::before { opacity: 0.3; }
+  .feat-emoji { font-size: 2.8rem; display: block; margin-bottom: 16px; position: relative; z-index: 1; }
+  .feat-title { font-family: 'Noto Serif KR', serif; font-size: 1rem; font-weight: 700; color: var(--brown); margin-bottom: 10px; position: relative; z-index: 1; }
+  .feat-text { font-size: 0.78rem; color: var(--text-light); line-height: 1.7; font-weight: 300; position: relative; z-index: 1; }
+
+  /* CTA BANNER */
+  .cta-banner { background: linear-gradient(135deg, var(--brown) 0%, var(--brown-mid) 100%); padding: 80px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 40px; position: relative; overflow: hidden; }
+  .cta-banner::before { content: ''; position: absolute; width: 600px; height: 600px; border-radius: 50%; background: rgba(212,168,83,0.07); right: -200px; top: -200px; }
+  .cta-eyebrow { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 12px; }
+  .cta-title { font-family: 'Noto Serif KR', serif; font-size: 2rem; font-weight: 900; color: var(--cream); line-height: 1.3; margin-bottom: 10px; }
+  .cta-sub { font-size: 0.88rem; color: rgba(250,246,240,0.65); font-weight: 300; }
+  .cta-btn { background: var(--gold); color: var(--brown); padding: 18px 44px; font-size: 0.95rem; font-weight: 800; border: none; cursor: pointer; white-space: nowrap; border-radius: 2px; text-decoration: none; display: inline-block; transition: all 0.25s; position: relative; z-index: 1; letter-spacing: 0.3px; }
+  .cta-btn:hover { background: var(--gold-light); transform: scale(1.04); }
+
+  /* FOOTER */
+  footer { background: var(--text); color: rgba(250,246,240,0.5); padding: 48px 80px; display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; }
+  .footer-logo { font-family: 'Noto Serif KR', serif; font-size: 1.2rem; font-weight: 900; color: var(--gold-light); }
+  .footer-info { text-align: right; line-height: 1.8; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 120px 24px 60px; }
+    section { padding: 60px 24px; }
+    .about { grid-template-columns: 1fr; }
+    .curri-grid { grid-template-columns: 1fr; }
+    .feat-grid { grid-template-columns: repeat(2, 1fr); }
+    .cta-banner { grid-template-columns: 1fr; padding: 60px 24px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+    .footer-info { text-align: center; }
+    .features { padding: 60px 24px; }
+    .features-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">이바우<span>펫</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">학원 소개</a></li>
+    <li><a href="#curriculum">커리큘럼</a></li>
+    <li><a href="#features">특장점</a></li>
+    <li><a href="contact.html" class="nav-cta">상담 신청</a></li>
+  </ul>
+</nav>
+
+<section class="hero" style="padding:0;">
+  <div class="hero-left">
+    <div class="hero-badge">🏆 국내 최대 규모 &nbsp;·&nbsp; 전국 18개 직영지점</div>
+    <h1 class="hero-title">
+      반려견과 함께하는<br>
+      <span class="accent">전문 미용사</span>
+      의 꿈
+    </h1>
+    <p class="hero-desc">
+      농장견, 번식견이 아닌 실제 가정에서 사랑받는<br>
+      반려견으로 배우는 진짜 기술. 취업부터 창업까지,<br>
+      이바우펫이 처음부터 끝까지 함께합니다.
+    </p>
+    <div class="hero-btns">
+      <a href="contact.html" class="btn-primary">무료 상담 신청하기</a>
+      <a href="#curriculum" class="btn-secondary">커리큘럼 보기</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">18<span>개</span></div>
+        <div class="stat-label">전국 직영 지점</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">30<span>년</span></div>
+        <div class="stat-label">교육 전문 노하우</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100<span>%</span></div>
+        <div class="stat-label">가정견 실습</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-shape"></div>
+    <div class="hero-illustration">
+      <div class="hero-circle">
+        🐶
+        <div style="font-size:1.1rem; color:var(--brown-mid); font-weight:700; margin-top:8px; font-family:'Noto Serif KR',serif;">애견미용 전문학원</div>
+      </div>
+      <div class="paw-deco">🐾</div>
+      <div class="paw-deco">✂️</div>
+      <div class="paw-deco">🐾</div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-content">
+    <div class="section-label">About Evawpet</div>
+    <h2 class="section-title">반려견을 진심으로<br>사랑하는 교육철학</h2>
+    <p class="section-sub" style="margin-bottom:36px;">
+      이바우펫은 단순한 기술 전수를 넘어, 반려견의 심리와 스트레스까지 배려하는
+      전인적 미용 교육을 지향합니다. 농장견·번식견이 아닌, 실제 가정에서 사랑받는
+      반려견과의 실습으로 진짜 현장 경험을 쌓습니다.
+    </p>
+    <div class="about-items reveal">
+      <div class="about-item">
+        <div class="about-icon">🏠</div>
+        <div class="about-item-text">
+          <strong>100% 가정견 실습</strong>
+          <p>농장견·번식견 없이, 오직 실제 가정견과의 미용 실습. 소형견부터 대형견까지 다양한 견종을 경험합니다.</p>
+        </div>
+      </div>
+      <div class="about-item">
+        <div class="about-icon">🧠</div>
+        <div class="about-item-text">
+          <strong>반려견 심리·행동교정 무료 교육</strong>
+          <p>미용 기술만이 아닌, 반려견의 심리를 이해하고 스트레스 없는 미용 환경을 만드는 법을 함께 배웁니다.</p>
+        </div>
+      </div>
+      <div class="about-item">
+        <div class="about-icon">🌿</div>
+        <div class="about-item-text">
+          <strong>아로마 & 웰니스 교육</strong>
+          <p>반려견의 피부와 건강까지 생각하는 아로마 미용 기법을 추가 비용 없이 배울 수 있습니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="about-visual reveal">
+    <div class="about-card">
+      <div class="about-big-num">30</div>
+      <div class="section-label" style="margin-bottom:12px;">이바우펫 철학</div>
+      <h3 style="font-family:'Noto Serif KR',serif; font-size:1.3rem; color:var(--brown); font-weight:700; margin-bottom:20px; line-height:1.4;">"기술이 아닌<br>진심을 가르칩니다"</h3>
+      <p style="font-size:0.85rem; color:var(--text-light); line-height:1.8; font-weight:300;">1994년 설립 이후 펫 비즈니스 토탈 플랫폼을 구축해 온 이바우펫은, 애견미용 아카데미를 넘어 애견 호텔, 유치원, 리조트까지 운영하는 반려동물 전문 기업입니다.</p>
+      <div style="margin-top:28px; padding-top:24px; border-top:1px solid var(--paw); display:flex; gap:32px;">
+        <div>
+          <div style="font-family:'Noto Serif KR',serif; font-size:1.6rem; font-weight:900; color:var(--brown);">600<span style="font-size:1rem; color:var(--gold);">+</span></div>
+          <div style="font-size:0.72rem; color:var(--text-light); margin-top:4px;">전국 지점 수</div>
+        </div>
+        <div>
+          <div style="font-family:'Noto Serif KR',serif; font-size:1.6rem; font-weight:900; color:var(--brown);">3천<span style="font-size:1rem; color:var(--gold);">평</span></div>
+          <div style="font-size:0.72rem; color:var(--text-light); margin-top:4px;">강원 홍천 애견리조트</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-float-badge">
+      <span class="num">50~70%</span>
+      <span class="lbl">수강료 지원 혜택</span>
+    </div>
+  </div>
+</section>
+
+<section class="curriculum" id="curriculum">
+  <div class="section-label">Curriculum</div>
+  <h2 class="section-title">단계별 체계적 커리큘럼</h2>
+  <p class="section-sub">자격증 취득부터 실견 실습, 창업 준비까지 — 단계마다 목표가 명확한 교육 과정을 제공합니다.</p>
+  <div class="curri-grid">
+    <div class="curri-card reveal">
+      <div class="curri-step">01</div>
+      <div class="curri-icon">📚</div>
+      <div class="curri-title">이론 & 위그 교육</div>
+      <p class="curri-desc">애견 미용의 기초 이론과 위그(인조 털)를 이용한 가위·클리퍼 연습으로 손에 감각을 익힙니다. 자격증 취득을 위한 탄탄한 기본기를 다집니다.</p>
+      <span class="curri-tag">자격증 준비</span>
+    </div>
+    <div class="curri-card reveal" style="transition-delay:0.1s;">
+      <div class="curri-step">02</div>
+      <div class="curri-icon">✂️</div>
+      <div class="curri-title">실견 실습 과정</div>
+      <p class="curri-desc">3급 취득 후부터 바로 실견 실습 시작. 소형견부터 중·대형견까지, 다양한 견종의 실제 가정견을 미용하며 포트폴리오를 쌓아갑니다.</p>
+      <span class="curri-tag">실무 집중</span>
+    </div>
+    <div class="curri-card reveal" style="transition-delay:0.2s;">
+      <div class="curri-step">03</div>
+      <div class="curri-icon">🐾</div>
+      <div class="curri-title">심리·행동교정 특강</div>
+      <p class="curri-desc">반려견의 심리를 이해하고 스트레스 없이 미용하는 법을 배웁니다. 유기견 센터·보호소 협약을 통한 봉사 실습 기회도 제공됩니다.</p>
+      <span class="curri-tag">무료 특강</span>
+    </div>
+    <div class="curri-card reveal" style="transition-delay:0.1s;">
+      <div class="curri-step">04</div>
+      <div class="curri-icon">🌿</div>
+      <div class="curri-title">아로마 & 스페셜 특강</div>
+      <p class="curri-desc">피부 건강을 배려한 아로마 미용 기법과 최신 트렌드 스타일링 특강. 일반 학원과 차별화된 프리미엄 기술을 무료로 받아볼 수 있습니다.</p>
+      <span class="curri-tag">무료 포함</span>
+    </div>
+    <div class="curri-card reveal" style="transition-delay:0.2s;">
+      <div class="curri-step">05</div>
+      <div class="curri-icon">💼</div>
+      <div class="curri-title">취업 연계 과정</div>
+      <p class="curri-desc">애견카페, 동물병원, 호텔, 유치원 등 다양한 취업처와 연계. 자격증과 포트폴리오, 실무 경험까지 갖춘 경쟁력 있는 인재로 성장합니다.</p>
+      <span class="curri-tag">취업 지원</span>
+    </div>
+    <div class="curri-card reveal" style="transition-delay:0.3s;">
+      <div class="curri-step">06</div>
+      <div class="curri-icon">🏪</div>
+      <div class="curri-title">창업 전문 특별반</div>
+      <p class="curri-desc">위치 선정부터 오픈까지 창업 전 과정을 지원합니다. 창업 관련 무료 특강과 1:1 맞춤 컨설팅으로 나만의 샵을 열 수 있습니다.</p>
+      <span class="curri-tag">창업 지원</span>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="features-header">
+    <div>
+      <div class="section-label">Why Evawpet</div>
+      <h2 class="section-title">이바우펫을 선택해야 하는<br>4가지 이유</h2>
+    </div>
+    <p class="section-sub" style="max-width:300px; font-size:0.85rem;">수강료만 비싸고 실습은 부족한 학원과는 다릅니다. 이바우펫의 차이를 경험해보세요.</p>
+  </div>
+  <div class="feat-grid">
+    <div class="feat-card reveal">
+      <span class="feat-emoji">🏠</span>
+      <div class="feat-title">진짜 가정견과 실습</div>
+      <p class="feat-text">농장견·번식견이 아닌 실제 가정에서 사랑받는 반려견으로 실습합니다. 다양한 견종과 체형을 경험할 수 있어 현장 적응력이 탁월합니다.</p>
+    </div>
+    <div class="feat-card reveal" style="transition-delay:0.1s;">
+      <span class="feat-emoji">👩‍🏫</span>
+      <div class="feat-title">1:1 개인 맞춤 지도</div>
+      <p class="feat-text">개인 진도에 맞춰 전문 강사가 1:1로 수업을 진행합니다. 연령이나 속도에 상관없이 누구나 충분히 배울 수 있습니다.</p>
+    </div>
+    <div class="feat-card reveal" style="transition-delay:0.2s;">
+      <span class="feat-emoji">💸</span>
+      <div class="feat-title">수강료 50~70% 지원</div>
+      <p class="feat-text">협회 지원 특별 장학 제도로 수강료의 최대 70%까지 지원받을 수 있습니다. 합리적인 비용으로 전문가의 꿈을 이루세요.</p>
+    </div>
+    <div class="feat-card reveal" style="transition-delay:0.3s;">
+      <span class="feat-emoji">🏪</span>
+      <div class="feat-title">취업·창업 원스톱 지원</div>
+      <p class="feat-text">자격증 취득 후 취업 연계는 물론, 위치 선정부터 오픈까지 창업 전 과정을 무료로 지원합니다. 나만의 샵도 꿈이 아닙니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner" id="cta" style="padding-top:80px; padding-bottom:80px;">
+  <div>
+    <div class="cta-eyebrow">지금 바로 시작하세요</div>
+    <div class="cta-title">애견미용사의 첫 걸음,<br>이바우펫과 함께하세요</div>
+    <div class="cta-sub">무료 상담 신청 후 커리큘럼과 수강료 지원 혜택을 안내받아보세요.<br>전국 18개 지점 중 가까운 곳에서 만날 수 있습니다.</div>
+  </div>
+  <div style="display:flex; flex-direction:column; gap:14px; align-items:flex-end; position:relative; z-index:1;">
+    <a href="contact.html" class="cta-btn">무료 상담 신청하기 →</a>
+    <div style="font-size:0.75rem; color:rgba(250,246,240,0.4); text-align:right;">📞 010-9570-1537 &nbsp;|&nbsp; 월~목 11:00~21:30 / 토 11:00~15:00</div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-logo">이바우펫 애견미용학원</div>
+    <div style="margin-top:8px; font-size:0.75rem;">🐾 펫 비즈니스 No.1 — 전국 18개 직영지점</div>
+  </div>
+  <div class="footer-info">
+    <div>인천광역시 남동구 인하로 501</div>
+    <div>사업자등록번호: 211-87-42130 | 대표이사: 김명자</div>
+    <div>admin@evawpet.com | 010-9570-1537</div>
+    <div style="margin-top:8px; opacity:0.4;">© 2024 Evawpet. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
